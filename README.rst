@@ -5,6 +5,7 @@ ckanext-spatial - Geo related plugins for CKAN
 .. image:: https://travis-ci.org/ckan/ckanext-spatial.svg?branch=master
     :target: https://travis-ci.org/ckan/ckanext-spatial
 
+:**Important**: This extension is upgraded by adding a spatial widget into metadata template following the outcome of `this issue <https://github.com/ckan/ckanext-scheming/issues/11>`_ from `Florian Mayer <https://github.com/florianm>`_.
 
 This extension contains plugins that add geospatial capabilities to CKAN_,
 including:
@@ -15,6 +16,7 @@ including:
 * Harvesters to import geospatial metadata into CKAN from other sources
   in ISO 19139 format and others.
 * Commands to support the CSW standard using pycsw_.
+
 
 **Note**: The view plugins for rendering spatial formats like GeoJSON_ have
 been moved to ckanext-geoview_.
