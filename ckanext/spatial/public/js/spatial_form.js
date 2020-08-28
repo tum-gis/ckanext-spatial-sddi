@@ -216,6 +216,66 @@ this.ckan.module('spatial-form', function (jQuery, _) {
             featureGroupToInput(drawnItems, this.input);
         });
 
-    }
+
+
+
+
+
+//   #####   Update the map when the spatial field is edited   #####
+
+		// create a new layer, that holds the new polygons
+		var map_scene = new L.FeatureGroup();
+
+		// get the dropdown and the input field
+		var m_select = document.getElementById("select-field-spatial");
+		var m_field = document.getElementById("field-spatial");
+
+		// when the dropdown is changed, this is executed. It should override other onchange functions from the scheming extension
+		m_select.onchange = function(){
+
+			// update the input field below with the selected geoJSON object
+			m_field.value = m_select.value;
+			
+			// remove all previous layers from the map
+			clear_map(map, map_scene);
+			
+			// if any of the custom extents are selected (not the first one!), draw that new layer
+			if(m_select.selectedIndex > 0){
+				draw_layer(map, map_scene, JSON.parse(m_field.value));
+			}
+		}
+
+		// when the input field is edited manually, update the map with the changes
+		m_field.onchange = function(){
+			
+			// remove all previous layers from the map
+			clear_map(map, map_scene);
+			
+			// draw the modified layer
+			draw_layer(map, map_scene, JSON.parse(m_field.value));
+		}
+	}
   }
 });
+
+// function to remove layers from the map
+function clear_map(map, map_scene){
+
+	// for all layers within the previously created layer
+	map_scene.eachLayer(function(layer){
+		map.removeLayer(layer)
+	});
+}
+
+// function to draw a new layer on the map
+function draw_layer(map, layer, geoJSON){
+
+	// iterate over the geoJSON object and add the layers to the map
+	L.geoJSON(geoJSON).eachLayer(function(layer2){
+		layer.addLayer(layer2);
+	});
+	map.addLayer(layer);
+	
+	// update the camera, so the layer is centered
+	map.fitBounds(layer.getBounds());
+}

@@ -13,10 +13,11 @@ e.g.
 #}
 <section id="dataset-map" class="module module-narrow module-shallow">
   <h2 class="module-heading">
-    <i class="icon-medium icon-globe"></i>
-    {{ _('Filter by location') }}
+  <div>
+		<i class="icon-medium icon-globe"></i> {{ _('Räumliche Ausdehnung') }}
+	<img src="https://catalog.gis.lrg.tum.de/base/images/custom/questionmark.png" style="display:inline-block" title="Hiermit kann nach der räumlichen Ausdehnung von Datensätzen gesucht werden. Das Ergebnis der Suche ist eine Liste aller Datensätze, denen eine Raumgeometrie zugeordnet ist, und die innerhalb der Suchmaske liegen."/>
     <a href="{{ h.remove_url_param(['ext_bbox','ext_prev_extent', 'ext_location']) }}" 
-      class="action">{{ _('Clear') }}</a>
+      class="action">{{ _('Löschen') }}</a>
   </h2>
   {% set map_config = h.get_common_map_config() %}
   <div class="dataset-map" data-module="spatial-query" 
@@ -30,4 +31,3 @@ e.g.
 </section>
 
 {% resource 'ckanext-spatial/spatial_query' %}
-
